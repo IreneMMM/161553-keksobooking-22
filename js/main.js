@@ -1,49 +1,6 @@
 'use strict';
 
-// функция для генерирования случайного целого числа
-const getRandomIntInclusive = (min, max) => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  if (min < 0 || max < 0) {
-    return 'Диапазон указан неверно. Значения не должны быть отрицательными.';
-  } else if (min >= max) {
-    return 'Диапазон указан неверно. Минимальное значение должно быть меньше максимального.';
-  } else {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-}
-
-// функция для генерирования случайного числа с точкой
-const getRandomFloat = (min, max, numbersAfter) => {
-  if (min < 0 || max < 0) {
-    return 'Диапазон указан неверно. Значения не должны быть отрицательными.';
-  } else if (min >= max) {
-    return 'Диапазон указан неверно. Минимальное значение должно быть меньше максимального.';
-  } else {
-    return (Math.random() * (max - min) + min).toFixed(numbersAfter);
-  }
-}
-
-// функция для выбора случайного элемента из массива
-const getRandomArrayElement = (elements) => {
-  return elements[getRandomIntInclusive(0, elements.length - 1)];
-};
-
-// функция для генерации случайной длины массива
-const getRandomArrayLength = (array) => {
-  return getRandomIntInclusive(1, array.length);
-};
-
-// функция для генерации массива случайной длины
-const getRandomValuesArray = function (array) {
-  let randomFeaturesArray = [];
-  for (let i = 0; i < getRandomArrayLength(array); i++) {
-    randomFeaturesArray.push(array[i]);
-  }
-  return randomFeaturesArray;
-};
-
-const SIMILAR_HOTELS_COUNT = 10;
+const SIMILAR_OFFERS_COUNT = 10;
 
 const TITLES = [
   'Маленькая уютная квартирка в Токио',
@@ -104,17 +61,58 @@ const PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
 ];
 
-const AVATAR = 'img/avatars/user0' + getRandomIntInclusive(1, 8) + '.png';
+// функция для генерирования случайного целого числа
+const getRandomIntInclusive = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  if (min < 0 || max < 0) {
+    return 'Диапазон указан неверно. Значения не должны быть отрицательными.';
+  } else if (min >= max) {
+    return 'Диапазон указан неверно. Минимальное значение должно быть меньше максимального.';
+  } else {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+}
 
-const createHotel = () => {
+// функция для генерирования случайного числа с точкой
+const getRandomFloat = (min, max, numbersAfter) => {
+  if (min < 0 || max < 0) {
+    return 'Диапазон указан неверно. Значения не должны быть отрицательными.';
+  } else if (min >= max) {
+    return 'Диапазон указан неверно. Минимальное значение должно быть меньше максимального.';
+  } else {
+    return (Math.random() * (max - min) + min).toFixed(numbersAfter);
+  }
+}
+
+// функция для выбора случайного элемента из массива
+const getRandomArrayElement = (elements) => {
+  return elements[getRandomIntInclusive(0, elements.length - 1)];
+};
+
+// функция для генерации случайной длины массива
+const getRandomArrayLength = (array) => {
+  return getRandomIntInclusive(1, array.length);
+};
+
+// функция для генерации массива случайной длины
+const getRandomValuesArray = function (array) {
+  let randomFeaturesArray = [];
+  for (let i = 0; i < getRandomArrayLength(array); i++) {
+    randomFeaturesArray.push(array[i]);
+  }
+  return randomFeaturesArray;
+};
+
+
+const createOffer = () => {
   const X = getRandomFloat(35.65000, 35.70000, 5);
   const Y = getRandomFloat(139.70000, 139.80000, 5);
 
   return {
     author: {
-      avatar: AVATAR,
+      avatar: 'img/avatars/user0' + getRandomIntInclusive(1, 8) + '.png',
     },
-
     offer: {
       title: getRandomArrayElement(TITLES),
       address: X + ',' + Y,
@@ -128,7 +126,6 @@ const createHotel = () => {
       description: getRandomArrayElement(DESCRIPTIONS),
       photos: getRandomValuesArray(PHOTOS),
     },
-
     location: {
       x: X,
       y: Y,
@@ -136,6 +133,8 @@ const createHotel = () => {
   };
 };
 
-const similarHotels = new Array(SIMILAR_HOTELS_COUNT).fill(null).map(() => createHotel());
+const createOffers = (num) => {
+  return new Array(num).fill(null).map(() => createOffer());
+};
 
-similarHotels;
+createOffers(SIMILAR_OFFERS_COUNT);
