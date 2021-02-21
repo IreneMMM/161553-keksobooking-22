@@ -45,10 +45,14 @@ const getRandomValuesArray = function (array) {
 const getWordForm = (number, forms) => {
   number = Math.abs(number);
   if (Number.isInteger(number)) {
-    const cases = [2, 0, 1, 1, 1, 2];
-    return forms[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
+    if (number % 100 > 4 && number % 100 < 20 || number % 10 > 4 || number % 10 === 0 ) {
+      return forms[2];
+    } else if (number % 10 < 5 && number % 10 > 1) {
+      return forms[1];
+    } else {
+      return forms[0];
+    }
   }
-  return forms[1];
 }
 
 export { getRandomIntInclusive, getRandomFloat, getRandomArrayElement, getRandomValuesArray, getWordForm };
