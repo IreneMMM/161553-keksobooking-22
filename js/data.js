@@ -17,12 +17,12 @@ const TITLES = [
   'Аппартаменты высшего класса',
 ];
 
-const TYPES = [
-  'palace',
-  'flat',
-  'house',
-  'bungalow',
-];
+const TYPES = {
+  palace: 'Дворец',
+  flat: 'Квартира',
+  house: 'Дом',
+  bungalow: 'Бунгало',
+};
 
 const CHECKIN = [
   '12:00',

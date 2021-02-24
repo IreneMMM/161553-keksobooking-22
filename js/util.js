@@ -1,8 +1,3 @@
-const RANGE_2_TO_4 = [2, 3, 4];
-const RANGE_10_TO_14 = [10, 11, 12, 13, 14];
-const DIVIDER = 10;
-
-
 // функция для генерирования случайного целого числа
 const getRandomIntInclusive = (min, max) => {
   min = Math.ceil(min);
@@ -46,35 +41,23 @@ const getRandomValuesArray = function (array) {
   return randomFeaturesArray;
 };
 
-// функция для склонения слов
-// const getWordForm = (number, forms) => {
-//   number = Math.abs(number);
-//   if (Number.isInteger(number)) {
-//     if (number % 100 > 4 && number % 100 < 20 || number % 10 > 4 || number % 10 === 0 ) {
-//       return forms[2];
-//     } else if (number % 10 < 5 && number % 10 > 1) {
-//       return forms[1];
-//     } else {
-//       return forms[0];
-//     }
-//   }
-// }
-
 
 // функция для склонения слов без магических чисел
 const getWordForm = (number, forms) => {
+  const RANGE_PRIME = [2, 3, 4];
+  const RANGE_DECIMAL = [10, 11, 12, 13, 14];
+  const DIVIDER = 10;
   number = Math.abs(number);
   if (Number.isInteger(number)) {
-
-    if (number % DIVIDER === 1 && (!RANGE_10_TO_14.includes(number))) {
+    if (number % DIVIDER === 1 && (!RANGE_DECIMAL.includes(number))) {
       return forms[0];
-    } else if ((RANGE_2_TO_4.includes(number % DIVIDER)) && (!RANGE_10_TO_14.includes(number))) {
+    } else if ((RANGE_PRIME.includes(number % DIVIDER)) && (!RANGE_DECIMAL.includes(number))) {
       return forms[1];
     } else {
       return forms[2];
     }
   }
-}
+};
 
 
 export { getRandomIntInclusive, getRandomFloat, getRandomArrayElement, getRandomValuesArray, getWordForm };
