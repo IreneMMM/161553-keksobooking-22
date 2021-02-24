@@ -4,39 +4,43 @@ import { getWordForm } from './util.js';
 const ROOM_FORMS = ['комната', 'комнаты', 'комнат'];
 const GUEST_FORMS = ['гостя', 'гостей', 'гостей'];
 
+const IMG_WIDTH = 45;
+const IMG_HEIGHT = 40;
+const IMG_ALT = 'Фотография жилья';
+
 const promos = createOffers();
 const map = document.querySelector('#map-canvas');
 const cardTemplate = document.querySelector('#card').content.querySelector('article');
 const cardFragment = document.createDocumentFragment();
 
 // Функция создания списка удобств
-const createFeaturesList = (array, list, tag, className) => {
+const createFeaturesList = (array, list) => {
   list.innerHTML = '';
   for (let i = 0; i < array.length; i++) {
-    const item = document.createElement(tag);
-    item.classList.add(className);
-    item.classList.add(`${className}--${array[i]}`);
+    const item = document.createElement('li');
+    item.classList.add('.popup__feature');
+    item.classList.add(`'.popup__feature'--${array[i]}`);
     item.textContent = array[i];
     list.appendChild(item);
   }
 }
 
 // Функция создания списка фотографий жилья
-const createPhotosList = (array, list, tag, className, width, height, alt) => {
+const createPhotosList = (array, list) => {
   list.innerHTML = '';
   for (let i = 0; i < array.length; i++) {
-    const item = document.createElement(tag);
-    item.classList.add(className);
+    const item = document.createElement('img');
+    item.classList.add('.popup__photo');
     item.src = array[i];
-    item.width = width;
-    item.height = height;
-    item.alt =alt;
+    item.width = IMG_WIDTH;
+    item.height = IMG_HEIGHT;
+    item.alt = IMG_ALT;
     list.appendChild(item);
   }
 }
 
 
-const creatCard = (elements) => {
+const createCard = (elements) => {
   elements.forEach((element) => {
     const card = cardTemplate.cloneNode(true);
     card.querySelector('.popup__avatar').src = element.author.avatar;
@@ -48,20 +52,18 @@ const creatCard = (elements) => {
     card.querySelector('.popup__text--time').textContent = 'Заезд после ' + element.offer.checkin + ', выезд до ' + element.offer.checkout;
     card.querySelector('.popup__description').textContent = element.offer.description;
 
-
     const featuresList = card.querySelector('.popup__features');
-    createFeaturesList(element.offer.features, featuresList, 'li', '.popup__feature');
+    createFeaturesList(element.offer.features, featuresList);
 
     const photosList = card.querySelector('.popup__photos');
-    createPhotosList(element.offer.photos, photosList, 'img', '.popup__photo', 45, 40, 'Фотография жилья');
+    createPhotosList(element.offer.photos, photosList);
 
     cardFragment.appendChild(card);
   });
 }
 
-creatCard(promos);
-
+createCard(promos);
 
 map.appendChild(cardFragment);
 
-export { map };
+export { createCard };
