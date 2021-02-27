@@ -1,7 +1,7 @@
-const roomType = document.querySelector('#type');
-const roomPrice = document.querySelector('#price');
-const timeIn = document.querySelector('#timein');
-const timeOut = document.querySelector('#timeout');
+const adForm = document.querySelector('.ad-form');
+const roomType = adForm.querySelector('#type');
+const timeIn = adForm.querySelector('#timein');
+const timeOut = adForm.querySelector('#timeout');
 
 const roomPrices = {
   palace: '10000',
@@ -10,9 +10,13 @@ const roomPrices = {
   bungalow: '0',
 }
 
-roomType.addEventListener('change', (event) => {
-  roomPrice.value = roomPrices[event.target.value];
-})
+const setRoomPrice = () => {
+  const minRoomPrice = adForm.querySelector('#price');
+  minRoomPrice.min = roomPrices[roomType.value];
+  minRoomPrice.placeholder = roomPrices[roomType.value];
+};
+
+roomType.addEventListener('change', setRoomPrice);
 
 timeIn.addEventListener('change', (event) => {
   const timeInValue = event.target.value;
