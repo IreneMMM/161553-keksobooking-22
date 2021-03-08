@@ -19,6 +19,7 @@ const adFormFieldsets = adForm.querySelectorAll('.ad-form__element');
 const mapFilterSelects = mapFilter.querySelectorAll('select');
 const mapFilterFieldsets = mapFilter.querySelectorAll('fieldset');
 const address = adForm.querySelector('#address');
+const promos = createOffers(SIMILAR_OFFERS_COUNT);
 
 const elementsEnable = (collections) => {
   for (const element of collections) {
@@ -49,6 +50,8 @@ const mapActivate = () => {
   address.value = `${TOKIO_ADDRESS.lat}, ${TOKIO_ADDRESS.lng}`;
   address.setAttribute('readonly', 'readonly');
 };
+
+mapDeactivate();
 
 const map = L.map('map')
   .on('load', mapActivate)
@@ -81,8 +84,6 @@ mainPinMarker.on('moveend', () => {
   address.value = mainPinMarker.getLatLng().lat.toFixed(NUMBERS_AFTER_COMMA) + ',' + mainPinMarker.getLatLng().lng.toFixed(NUMBERS_AFTER_COMMA);
 });
 
-const promos = createOffers(SIMILAR_OFFERS_COUNT);
-
 promos.forEach((promo) => {
   const pinIcon = L.icon({
     iconUrl: './img/pin.svg',
@@ -109,4 +110,3 @@ promos.forEach((promo) => {
     );
 });
 
-mapDeactivate();
