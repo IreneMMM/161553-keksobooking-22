@@ -15,8 +15,8 @@ const createFeaturesList = (array, list) => {
   list.innerHTML = '';
   for (let i = 0; i < array.length; i++) {
     const item = document.createElement('li');
-    item.classList.add('.popup__feature');
-    item.classList.add(`'.popup__feature'--${array[i]}`);
+    item.classList.add('popup__feature');
+    item.classList.add(`popup__feature--${array[i]}`);
     item.textContent = array[i];
     list.appendChild(item);
   }

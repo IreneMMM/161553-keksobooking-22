@@ -32,7 +32,6 @@ const elementsDisable = (collections) => {
   }
 };
 
-
 const mapDeactivate = () => {
   adForm.classList.add('ad-form--disabled');
   mapFilter.classList.add('map__filters--disabled');
@@ -51,8 +50,6 @@ const mapActivate = () => {
   address.setAttribute('readonly', 'readonly');
 };
 
-mapDeactivate();
-
 const map = L.map('map')
   .on('load', mapActivate)
   .setView(TOKIO_ADDRESS, MAP_ZOOM);
@@ -65,7 +62,7 @@ L.tileLayer(
 ).addTo(map);
 
 const mainPinIcon = L.icon({
-  iconUrl: '../img/main-pin.svg',
+  iconUrl: './img/main-pin.svg',
   iconSize: [MAINPINICON_SIZE, MAINPINICON_SIZE],
   iconAnchor: [MAINPINICON_SIZE / 2, MAINPINICON_SIZE],
 });
@@ -83,7 +80,6 @@ mainPinMarker.addTo(map);
 mainPinMarker.on('moveend', () => {
   address.value = mainPinMarker.getLatLng().lat.toFixed(NUMBERS_AFTER_COMMA) + ',' + mainPinMarker.getLatLng().lng.toFixed(NUMBERS_AFTER_COMMA);
 });
-
 
 const promos = createOffers(SIMILAR_OFFERS_COUNT);
 
@@ -112,3 +108,5 @@ promos.forEach((promo) => {
       },
     );
 });
+
+mapDeactivate();
