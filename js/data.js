@@ -1,6 +1,5 @@
 import { getRandomIntInclusive, getRandomFloat, getRandomArrayElement, getRandomValuesArray } from './util.js';
 
-const SIMILAR_OFFERS_COUNT = 10;
 const MIN_PHOTO_NUMBER = 1;
 const MAX_PHOTO_NUMBER = 8;
 
@@ -96,7 +95,5 @@ const createOffer = () => {
 const createOffers = (num) => {
   return new Array(num).fill(null).map(() => createOffer());
 };
-
-createOffers(SIMILAR_OFFERS_COUNT);
 
 export { createOffers, TYPES };
