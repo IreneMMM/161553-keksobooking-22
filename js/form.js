@@ -1,3 +1,9 @@
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 100;
+const MAX_PRICE_LENGTH = 1000000;
+const MIN_QUANTITY = 0;
+const MAX_QUANTITY = 100;
+
 const adForm = document.querySelector('.ad-form');
 const roomType = adForm.querySelector('#type');
 const timeIn = adForm.querySelector('#timein');
@@ -6,11 +12,6 @@ const roomNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
 const adFormTitle = adForm.querySelector('#title');
 const adFormPrice = adForm.querySelector('#price');
-const MIN_TITLE_LENGTH = 30;
-const MAX_TITLE_LENGTH = 100;
-const MAX_PRICE_LENGTH = 1000000;
-const MIN_QUANTITY = 0;
-const MAX_QUANTITY = 100;
 
 const roomPrices = {
   palace: '10000',
@@ -26,11 +27,11 @@ const setRoomPrice = () => {
 };
 
 const checkCapacity = () => {
-  if (roomNumber.value === MAX_QUANTITY && capacity.value !== MIN_QUANTITY) {
+  if (Number(roomNumber.value) === MAX_QUANTITY && Number(capacity.value) !== MIN_QUANTITY) {
     capacity.setCustomValidity('Выберите вариант "не для гостей"');
-  } else if (roomNumber.value !== MAX_QUANTITY && capacity.value === MIN_QUANTITY) {
+  } else if (Number(roomNumber.value) !== MAX_QUANTITY && Number(capacity.value) === MIN_QUANTITY) {
     capacity.setCustomValidity('Выберите другой вариант');
-  } else if (roomNumber.value < capacity.value) {
+  } else if (Number(roomNumber.value) < Number(capacity.value)) {
     capacity.setCustomValidity('Выберите меньшее количество гостей');
   } else {
     capacity.setCustomValidity('');
@@ -38,24 +39,21 @@ const checkCapacity = () => {
   capacity.reportValidity();
 };
 
-adFormTitle.addEventListener('input', () => {
+const checkTitle = () => {
   const valueLength = adFormTitle.value.length;
-
   if (valueLength < MIN_TITLE_LENGTH) {
-    adFormTitle.setCustomValidity('Ещё ' + (MIN_TITLE_LENGTH - valueLength) +' симв.');
+    adFormTitle.setCustomValidity('Ещё ' + (MIN_TITLE_LENGTH - valueLength) + ' симв.');
   } else if (valueLength > MAX_TITLE_LENGTH) {
-    adFormTitle.setCustomValidity('Удалите лишние ' + (valueLength - MAX_TITLE_LENGTH) +' симв.');
+    adFormTitle.setCustomValidity('Удалите лишние ' + (valueLength - MAX_TITLE_LENGTH) + ' симв.');
   } else {
     adFormTitle.setCustomValidity('');
   }
-
   adFormTitle.reportValidity();
-});
+};
 
-adFormPrice.addEventListener('input', () => {
+const checkPrice = () => {
   const price = adForm.price.value;
   const min = adForm.price.min;
-
   if (price < min) {
     adFormPrice.setCustomValidity('Введенное значение меньше минимального');
   } else if (price > MAX_PRICE_LENGTH) {
@@ -63,11 +61,8 @@ adFormPrice.addEventListener('input', () => {
   } else {
     adFormPrice.setCustomValidity('');
   }
-
   adFormPrice.reportValidity();
-});
-
-roomType.addEventListener('change', setRoomPrice);
+};
 
 timeIn.addEventListener('change', (event) => {
   const timeInValue = event.target.value;
@@ -79,10 +74,8 @@ timeOut.addEventListener('change', (event) => {
   timeIn.value = timeOutValue;
 });
 
-capacity.addEventListener('change', () => {
-  checkCapacity();
-});
-
-roomNumber.addEventListener('change', () => {
-  checkCapacity();
-});
+adFormTitle.addEventListener('input', checkTitle);
+adFormPrice.addEventListener('input', checkPrice);
+roomType.addEventListener('change', setRoomPrice);
+capacity.addEventListener('change', checkCapacity);
+roomNumber.addEventListener('change', checkCapacity);
