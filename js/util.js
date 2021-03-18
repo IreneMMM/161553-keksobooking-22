@@ -1,3 +1,4 @@
+
 // функция для генерирования случайного целого числа
 const getRandomIntInclusive = (min, max) => {
   min = Math.ceil(min);
@@ -58,6 +59,5 @@ const getWordForm = (number, forms) => {
     }
   }
 };
-
 
 export { getRandomIntInclusive, getRandomFloat, getRandomArrayElement, getRandomValuesArray, getWordForm };

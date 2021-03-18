@@ -1,3 +1,7 @@
+import { onErrorMessage } from './messages.js';
+import { setCoordinates } from './map.js';
+
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_LENGTH = 1000000;
@@ -12,6 +16,8 @@ const roomNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
 const adFormTitle = adForm.querySelector('#title');
 const adFormPrice = adForm.querySelector('#price');
+const resetButton = adForm.querySelector('.ad-form__reset');
+
 
 const roomPrices = {
   palace: '10000',
@@ -79,3 +85,38 @@ adFormPrice.addEventListener('input', checkPrice);
 roomType.addEventListener('change', setRoomPrice);
 capacity.addEventListener('change', checkCapacity);
 roomNumber.addEventListener('change', checkCapacity);
+
+
+const setAdFormSubmit = (onSuccess) => {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const formData = new FormData(evt.target);
+    fetch(
+      'https://22.javascript.pages.academy/keksobooking',
+      {
+        method: 'POST',
+        body: formData,
+      },
+    ).then((response) => {
+      if (response.ok) {
+        onSuccess();
+        adForm.reset();
+        setCoordinates();
+      } else {
+        onErrorMessage();
+      }
+    })
+      .catch(() => {
+        onErrorMessage();
+      });
+  })
+};
+
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  adForm.reset();
+  setCoordinates();
+});
+
+export { setAdFormSubmit };

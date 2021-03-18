@@ -1,12 +1,11 @@
 /* global L:readonly */
-import { createOffers } from './data.js';
 import { createCard } from './create-card.js';
 
 const TOKIO_ADDRESS = {
   lat: 35.683359,
   lng: 139.749919,
 }
-const SIMILAR_OFFERS_COUNT = 10;
+
 const MAP_ZOOM = 10;
 const MAINPINICON_SIZE = 52;
 const PINICON_SIZE = 40;
@@ -19,7 +18,6 @@ const adFormFieldsets = adForm.querySelectorAll('.ad-form__element');
 const mapFilterSelects = mapFilter.querySelectorAll('select');
 const mapFilterFieldsets = mapFilter.querySelectorAll('fieldset');
 const address = adForm.querySelector('#address');
-const promos = createOffers(SIMILAR_OFFERS_COUNT);
 
 const elementsEnable = (collections) => {
   for (const element of collections) {
@@ -84,29 +82,38 @@ mainPinMarker.on('moveend', () => {
   address.value = mainPinMarker.getLatLng().lat.toFixed(NUMBERS_AFTER_COMMA) + ',' + mainPinMarker.getLatLng().lng.toFixed(NUMBERS_AFTER_COMMA);
 });
 
-promos.forEach((promo) => {
-  const pinIcon = L.icon({
-    iconUrl: './img/pin.svg',
-    iconSize: [PINICON_SIZE, PINICON_SIZE],
-    iconAnchor: [PINICON_SIZE / 2, PINICON_SIZE],
-  });
-  const marker = L.marker(
-    {
-      lat: promo.location.x,
-      lng: promo.location.y,
-    },
-    {
-      icon: pinIcon,
-    },
-  );
+const setCoordinates = () => {
+  address.value = `${TOKIO_ADDRESS.lat}, ${TOKIO_ADDRESS.lng}`;
+  mainPinMarker.setLatLng(TOKIO_ADDRESS).update();
+};
 
-  marker
-    .addTo(map)
-    .bindPopup(
-      createCard(promo),
+const createMarkers = (promos) => {
+  promos.forEach((promo) => {
+    const pinIcon = L.icon({
+      iconUrl: './img/pin.svg',
+      iconSize: [PINICON_SIZE, PINICON_SIZE],
+      iconAnchor: [PINICON_SIZE / 2, PINICON_SIZE],
+    });
+    const marker = L.marker(
       {
-        keepInView: true,
+        lat: promo.location.lat,
+        lng: promo.location.lng,
+      },
+      {
+        icon: pinIcon,
       },
     );
-});
 
+    marker
+      .addTo(map)
+      .bindPopup(
+        createCard(promo),
+        {
+          keepInView: true,
+        },
+      );
+  });
+};
+
+
+export { createMarkers, mapActivate, setCoordinates };
