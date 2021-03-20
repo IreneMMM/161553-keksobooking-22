@@ -1,4 +1,4 @@
-const ALERT_SHOW_TIME = 5000;
+const ALERT_SHOW_TIME = 15000;
 
 const onSuccessMessage = () => {
   const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
@@ -36,18 +36,8 @@ const closeErrorMessage = () => {
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
-  alertContainer.style.zIndex = 100;
-  alertContainer.style.position = 'fixed';
-  alertContainer.style.left = 0;
-  alertContainer.style.top = '670px';
-  alertContainer.style.right = 0;
-  alertContainer.style.padding = '10px 3px';
-  alertContainer.style.fontSize = '30px';
-  alertContainer.style.textAlign = 'center';
-  alertContainer.style.backgroundColor = 'red';
-
+  alertContainer.classList.add('alert__container');
   alertContainer.textContent = message;
-
   document.body.append(alertContainer);
 
   setTimeout(() => {

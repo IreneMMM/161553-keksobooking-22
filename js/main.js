@@ -1,8 +1,5 @@
 import './util.js';
 import './data.js';
-import './form.js';
-import './map.js';
-import './messages.js';
 import { showAlert, onSuccessMessage } from './messages.js';
 import { getData } from './api.js';
 import { createMarkers } from './map.js';
@@ -14,9 +11,7 @@ getData((json) => {
   createMarkers(json.slice(0, SIMILAR_OFFERS_COUNT));
 },
 () => {
-  showAlert();
+  showAlert('Произошла ошибка во время загрузки данных');
 });
 
 setAdFormSubmit(onSuccessMessage);
-
-

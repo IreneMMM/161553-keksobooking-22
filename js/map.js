@@ -115,5 +115,4 @@ const createMarkers = (promos) => {
   });
 };
 
-
-export { createMarkers, mapActivate, setCoordinates };
+export { createMarkers, setCoordinates };

@@ -1,5 +1,6 @@
-import { onErrorMessage } from './messages.js';
 import { setCoordinates } from './map.js';
+import { sendData } from './api.js';
+import { onErrorMessage } from './messages.js';
 
 
 const MIN_TITLE_LENGTH = 30;
@@ -91,27 +92,20 @@ const setAdFormSubmit = (onSuccess) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
-    const formData = new FormData(evt.target);
-    fetch(
-      'https://22.javascript.pages.academy/keksobooking',
-      {
-        method: 'POST',
-        body: formData,
-      },
-    ).then((response) => {
-      if (response.ok) {
+    sendData(
+      () => {
         onSuccess();
         adForm.reset();
         setCoordinates();
-      } else {
-        onErrorMessage();
-      }
-    })
-      .catch(() => {
-        onErrorMessage();
-      });
-  })
+      },
+
+      () => onErrorMessage(),
+      new FormData(evt.target),
+    );
+  });
 };
+
+
 
 resetButton.addEventListener('click', (evt) => {
   evt.preventDefault();

@@ -1,4 +1,3 @@
-
 // функция для генерирования случайного целого числа
 const getRandomIntInclusive = (min, max) => {
   min = Math.ceil(min);
