@@ -36,7 +36,6 @@ const createPhotosList = (array, list) => {
   }
 }
 
-
 const createCard = ({ offer, author }) => {
   const card = cardTemplate.cloneNode(true);
   card.querySelector('.popup__avatar').src = author.avatar;

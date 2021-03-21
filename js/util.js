@@ -59,5 +59,4 @@ const getWordForm = (number, forms) => {
   }
 };
 
-
 export { getRandomIntInclusive, getRandomFloat, getRandomArrayElement, getRandomValuesArray, getWordForm };

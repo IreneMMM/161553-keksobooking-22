@@ -1,3 +1,8 @@
+import { setCoordinates } from './map.js';
+import { sendData } from './api.js';
+import { onErrorMessage } from './messages.js';
+
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_LENGTH = 1000000;
@@ -12,6 +17,8 @@ const roomNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
 const adFormTitle = adForm.querySelector('#title');
 const adFormPrice = adForm.querySelector('#price');
+const resetButton = adForm.querySelector('.ad-form__reset');
+
 
 const roomPrices = {
   palace: '10000',
@@ -79,3 +86,31 @@ adFormPrice.addEventListener('input', checkPrice);
 roomType.addEventListener('change', setRoomPrice);
 capacity.addEventListener('change', checkCapacity);
 roomNumber.addEventListener('change', checkCapacity);
+
+
+const setAdFormSubmit = (onSuccess) => {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => {
+        onSuccess();
+        adForm.reset();
+        setCoordinates();
+      },
+
+      () => onErrorMessage(),
+      new FormData(evt.target),
+    );
+  });
+};
+
+
+
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  adForm.reset();
+  setCoordinates();
+});
+
+export { setAdFormSubmit };
