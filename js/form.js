@@ -3,6 +3,7 @@ import { sendData } from './api.js';
 import { onErrorMessage } from './messages.js';
 
 
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_LENGTH = 1000000;
@@ -104,8 +105,6 @@ const setAdFormSubmit = (onSuccess) => {
     );
   });
 };
-
-
 
 resetButton.addEventListener('click', (evt) => {
   evt.preventDefault();

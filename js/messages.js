@@ -1,4 +1,5 @@
 const ALERT_SHOW_TIME = 15000;
+const message = 'Произошла ошибка во время загрузки данных';
 
 const onSuccessMessage = () => {
   const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
@@ -34,7 +35,7 @@ const closeErrorMessage = () => {
   document.querySelector('.error').remove();
 };
 
-const showAlert = (message) => {
+const showAlert = () => {
   const alertContainer = document.createElement('div');
   alertContainer.classList.add('alert__container');
   alertContainer.textContent = message;
