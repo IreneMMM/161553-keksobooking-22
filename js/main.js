@@ -12,9 +12,9 @@ import { onChangeFilter } from './filter.js'
 
 const RERENDER_DELAY = 500;
 
-getData((json) => {
-  createMarkers(json);
-  onChangeFilter(_.debounce((() => { createMarkers(json) }), RERENDER_DELAY))
+getData((ads) => {
+  createMarkers(ads);
+  onChangeFilter(_.debounce((() => { createMarkers(ads) }), RERENDER_DELAY))
 }, showAlert);
 
 setAdFormSubmit(onSuccessMessage);

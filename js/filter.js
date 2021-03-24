@@ -5,6 +5,12 @@ const MIN_PRICE = 10000;
 const MAX_PRICE = 50000;
 const SIMILAR_OFFERS_COUNT = 10;
 
+const PRICES = {
+  LOW: 'low',
+  MIDDLE: 'middle',
+  HIGH: 'high',
+};
+
 const mapFilter = document.querySelector('.map__filters');
 const filterItems = mapFilter.querySelectorAll('select, input');
 const typeFilter = mapFilter.querySelector('#housing-type');
@@ -19,13 +25,13 @@ const checkType = (data) => {
 
 const checkPrice = (data) => {
   switch (priceFilter.value) {
-    case 'low':
+    case PRICES.LOW:
       return data.offer.price < MIN_PRICE;
-    case 'middle':
+    case PRICES.MIDDLE:
       return data.offer.price >= MIN_PRICE && data.offer.price <= MAX_PRICE;
-    case 'high':
+    case PRICES.HIGH:
       return data.offer.price > MAX_PRICE;
-    case 'any':
+    case DEFAULT_VALUE:
       return data.offer.price;
   }
 };
@@ -56,7 +62,7 @@ const getFilterData = (datas) => {
 
 const resetFilter = () => {
   filterItems.forEach((item) => {
-    item.value = 'any';
+    item.value = DEFAULT_VALUE;
   });
 
   let featuresItems = featuresFilter.querySelectorAll('input');
