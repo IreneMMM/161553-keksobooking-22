@@ -1,5 +1,6 @@
 /* global L:readonly */
 import { createCard } from './create-card.js';
+import { getFilterData } from './filter.js';
 
 const TOKIO_ADDRESS = {
   lat: 35.683359,
@@ -13,11 +14,12 @@ const NUMBERS_AFTER_COMMA = 5;
 
 
 const adForm = document.querySelector('.ad-form');
-const mapFilter = document.querySelector('.map__filters');
 const adFormFieldsets = adForm.querySelectorAll('.ad-form__element');
+const address = adForm.querySelector('#address');
+const mapFilter = document.querySelector('.map__filters');
 const mapFilterSelects = mapFilter.querySelectorAll('select');
 const mapFilterFieldsets = mapFilter.querySelectorAll('fieldset');
-const address = adForm.querySelector('#address');
+const markers = [];
 
 const elementsEnable = (collections) => {
   for (const element of collections) {
@@ -87,8 +89,11 @@ const setCoordinates = () => {
   mainPinMarker.setLatLng(TOKIO_ADDRESS).update();
 };
 
+
 const createMarkers = (promos) => {
-  promos.forEach((promo) => {
+  const filteredData = getFilterData(promos);
+
+  filteredData.forEach((promo) => {
     const pinIcon = L.icon({
       iconUrl: './img/pin.svg',
       iconSize: [PINICON_SIZE, PINICON_SIZE],
@@ -112,7 +117,17 @@ const createMarkers = (promos) => {
           keepInView: true,
         },
       );
+    markers.push(marker);
   });
+  return markers;
 };
 
-export { createMarkers, setCoordinates };
+const clearMap = () => {
+  markers.forEach((marker) => {
+    marker.remove()
+  })
+  map.closePopup();
+}
+
+
+export { createMarkers, setCoordinates, clearMap };
