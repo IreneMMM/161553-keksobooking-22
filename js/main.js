@@ -9,7 +9,6 @@ import { createMarkers } from './map.js';
 import { setAdFormSubmit } from './form.js';
 import { onChangeFilter } from './filter.js'
 
-
 const RERENDER_DELAY = 500;
 
 getData((ads) => {

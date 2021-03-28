@@ -90,7 +90,15 @@ const setCoordinates = () => {
 };
 
 
+const clearMap = () => {
+  markers.forEach((marker) => {
+    marker.remove()
+  })
+  map.closePopup();
+};
+
 const createMarkers = (promos) => {
+
   const filteredData = getFilterData(promos);
 
   filteredData.forEach((promo) => {
@@ -121,13 +129,6 @@ const createMarkers = (promos) => {
   });
   return markers;
 };
-
-const clearMap = () => {
-  markers.forEach((marker) => {
-    marker.remove()
-  })
-  map.closePopup();
-}
 
 
 export { createMarkers, setCoordinates, clearMap };

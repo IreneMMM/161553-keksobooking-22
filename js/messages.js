@@ -6,9 +6,17 @@ const onSuccessMessage = () => {
   const successMessageText = successMessageTemplate.cloneNode(true);
   document.body.append(successMessageText);
   let successMessage = document.querySelector('.success');
+
   successMessage.addEventListener('click', () => {
     document.querySelector('.success').remove();
   });
+
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      successMessage.remove()
+    }
+  });
+
   return successMessageText;
 };
 
@@ -23,17 +31,26 @@ const onErrorMessage = () => {
     }
   });
   let buttonError = document.querySelector('.error__button');
+
   buttonError.addEventListener('click', () => {
     if (document.querySelector('.error')) {
       closeErrorMessage();
     }
   });
+
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      closeErrorMessage();
+    }
+  });
+
   return errorMessageText;
 };
 
 const closeErrorMessage = () => {
   document.querySelector('.error').remove();
 };
+
 
 const showAlert = () => {
   const alertContainer = document.createElement('div');
