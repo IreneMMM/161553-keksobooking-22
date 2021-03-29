@@ -1,5 +1,6 @@
 const ALERT_SHOW_TIME = 15000;
 const message = 'Произошла ошибка во время загрузки данных';
+const ESCAPE= 'Escape';
 
 const onSuccessMessage = () => {
   const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
@@ -12,7 +13,7 @@ const onSuccessMessage = () => {
   });
 
   document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
+    if (evt.key === ESCAPE) {
       successMessage.remove()
     }
   });
@@ -39,7 +40,7 @@ const onErrorMessage = () => {
   });
 
   document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
+    if (evt.key === ESCAPE) {
       closeErrorMessage();
     }
   });
