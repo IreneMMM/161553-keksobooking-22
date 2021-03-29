@@ -2,7 +2,6 @@
 'use strict';
 
 import './util.js';
-import './data.js';
 import { showAlert, onSuccessMessage } from './messages.js';
 import { getData } from './api.js';
 import { createMarkers } from './map.js';

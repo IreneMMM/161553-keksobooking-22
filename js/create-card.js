@@ -1,4 +1,3 @@
-import { TYPES } from './data.js';
 import { getWordForm } from './util.js';
 
 const ROOM_FORMS = ['комната', 'комнаты', 'комнат'];
@@ -7,6 +6,13 @@ const GUEST_FORMS = ['гостя', 'гостей', 'гостей'];
 const IMG_WIDTH = 45;
 const IMG_HEIGHT = 40;
 const IMG_ALT = 'Фотография жилья';
+
+const TYPES = {
+  palace: 'Дворец',
+  flat: 'Квартира',
+  house: 'Дом',
+  bungalow: 'Бунгало',
+};
 
 const cardTemplate = document.querySelector('#card').content.querySelector('article');
 

@@ -12,7 +12,6 @@ const PRICES = {
 };
 
 const mapFilter = document.querySelector('.map__filters');
-const filterItems = mapFilter.querySelectorAll('select, input');
 const typeFilter = mapFilter.querySelector('#housing-type');
 const priceFilter = mapFilter.querySelector('#housing-price');
 const roomsFilter = mapFilter.querySelector('#housing-rooms');
@@ -46,7 +45,6 @@ const checkGuests = (data) => {
 
 const checkFeatures = (data) => {
   const checkedFeatures = Array.from(featuresFilter.querySelectorAll('input:checked'));
-
   return checkedFeatures.every((input) => {
     return data.offer.features.includes(input.value);
   });
@@ -60,17 +58,6 @@ const getFilterData = (datas) => {
   return filteredData.slice(0, SIMILAR_OFFERS_COUNT);
 };
 
-const resetFilter = () => {
-  filterItems.forEach((item) => {
-    item.value = DEFAULT_VALUE;
-  });
-
-  let featuresItems = featuresFilter.querySelectorAll('input');
-  featuresItems.forEach((feature) => {
-    feature.checked = false;
-  });
-};
-
 const onChangeFilter = (сb) => {
   mapFilter.addEventListener('change', () => {
     clearMap();
@@ -78,5 +65,10 @@ const onChangeFilter = (сb) => {
   });
 };
 
+const resetFilter = () => {
+  const resetMarkers = new Event('change');
+  featuresFilter.dispatchEvent(resetMarkers);
+  mapFilter.reset();
+};
 
 export { getFilterData, onChangeFilter, resetFilter };
