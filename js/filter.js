@@ -78,4 +78,5 @@ const onChangeFilter = (сb) => {
   });
 };
 
+
 export { getFilterData, onChangeFilter, resetFilter };

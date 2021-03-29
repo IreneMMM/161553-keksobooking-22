@@ -1,12 +1,15 @@
-import { setCoordinates } from './map.js';
-import { sendData } from './api.js';
+/* global _:readonly */
+import { setCoordinates, createMarkers } from './map.js';
+import { sendData, getData } from './api.js';
 import { onErrorMessage } from './messages.js';
+import { onChangeFilter, resetFilter } from './filter.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_LENGTH = 1000000;
 const MIN_QUANTITY = 0;
 const MAX_QUANTITY = 100;
+const RERENDER_DELAY = 500;
 
 const adForm = document.querySelector('.ad-form');
 const roomType = adForm.querySelector('#type');
@@ -96,6 +99,11 @@ const setAdFormSubmit = (onSuccess) => {
         onSuccess();
         adForm.reset();
         setCoordinates();
+        resetFilter();
+        getData((ads) => {
+          createMarkers(ads);
+          onChangeFilter(_.debounce((() => { createMarkers(ads) }), RERENDER_DELAY))
+        });
       },
 
       () => onErrorMessage(),

@@ -1,14 +1,24 @@
 const ALERT_SHOW_TIME = 15000;
+const ESCAPE = 'Escape';
 const message = 'Произошла ошибка во время загрузки данных';
+
 
 const onSuccessMessage = () => {
   const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
   const successMessageText = successMessageTemplate.cloneNode(true);
   document.body.append(successMessageText);
   let successMessage = document.querySelector('.success');
+
   successMessage.addEventListener('click', () => {
     document.querySelector('.success').remove();
   });
+
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === ESCAPE) {
+      successMessage.remove()
+    }
+  });
+
   return successMessageText;
 };
 
@@ -23,17 +33,26 @@ const onErrorMessage = () => {
     }
   });
   let buttonError = document.querySelector('.error__button');
+
   buttonError.addEventListener('click', () => {
     if (document.querySelector('.error')) {
       closeErrorMessage();
     }
   });
+
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === ESCAPE) {
+      closeErrorMessage();
+    }
+  });
+
   return errorMessageText;
 };
 
 const closeErrorMessage = () => {
   document.querySelector('.error').remove();
 };
+
 
 const showAlert = () => {
   const alertContainer = document.createElement('div');
