@@ -1,6 +1,7 @@
 const ALERT_SHOW_TIME = 15000;
+const ESCAPE = 'Escape';
 const message = 'Произошла ошибка во время загрузки данных';
-const ESCAPE= 'Escape';
+
 
 const onSuccessMessage = () => {
   const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
